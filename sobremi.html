@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sobre mí</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="about">
+  <div id="app"></div>
+
+  <script src="js/content.js"></script>
+  <script>
+    window.renderMain = function (t) {
+      const paragraphs = [t.about.intro, ...t.about.paragraphs]
+        .map((p) => `<p>${p}</p>`)
+        .join("");
+
+      return `
+        <div class="top-bar">
+          <a class="back-link" href="index.html">← ${t.nav.home}</a>
+          <button class="lang-toggle" onclick="toggleLang()" aria-label="Switch language">
+            ${t.langToggle}
+          </button>
+        </div>
+
+        <div class="about-frame">
+          <div class="about-text">
+            <h1 class="about-heading">${t.about.heading}</h1>
+            ${paragraphs}
+          </div>
+          <div class="about-photos">
+            <img class="photo-main" src="../assets/img/images.jpeg" alt="${t.about.heading}" />
+            <img class="photo-secondary" src = "../assets/img/desing.png" src alt="${t.about.heading}" />
+          </div>
+        </div>
+      `;
+    };
+  </script>
+  <script src="js/I18n.js"></script>
+</body>
+</html>

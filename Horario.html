@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Horario escolar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="schedule">
+  <div id="app"></div>
+
+  <script src="js/content.js"></script>
+  <script>
+    window.renderMain = function (t) {
+      // Encabezado de la tabla: una <th> por cada día (y "Hora")
+      const headCells = t.schedule.days.map((d) => `<th>${d}</th>`).join("");
+
+      // Cada fila de horario es un <tr>; la primera celda (hora) usa
+      // la clase "hour-cell" para pintarla distinto a las demás.
+      const bodyRows = t.schedule.rows
+        .map((row) => {
+          const cells = row
+            .map((cell, i) => {
+              const cls = i === 0 ? ' class="hour-cell"' : "";
+              return `<td${cls}>${cell || ""}</td>`;
+            })
+            .join("");
+          return `<tr>${cells}</tr>`;
+        })
+        .join("");
+
+      return `
+        <div class="top-bar">
+          <a class="back-link" href="index.html">← ${t.nav.home}</a>
+          <button class="lang-toggle" onclick="toggleLang()" aria-label="Switch language">
+            ${t.langToggle}
+          </button>
+        </div>
+
+        <div class="schedule-wrap">
+          <h1 class="schedule-heading">${t.schedule.heading}</h1>
+          <div class="table-scroll">
+            <table class="schedule-grid">
+              <thead>
+                <tr>${headCells}</tr>
+              </thead>
+              <tbody>
+                ${bodyRows}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+    };
+  </script>
+  <script src="js/I18n.js"></script>
+</body>
+</html>
